@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Directory Website</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #fff;
+            color: #333;
+        }
+        header {
+            background-color: black;
+            color: white;
+            padding: 1.5rem 0;
+            text-align: center;
+            font-size: 2rem;
+            font-weight: bold;
+            border-bottom: 2px solid #fff;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 3rem auto;
+            padding: 1rem;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        .directory-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            border-bottom: 1px solid #ddd;
+            transition: background-color 0.3s ease;
+            border-radius: 12px;
+            margin-bottom: 0.75rem;
+        }
+        .directory-item:hover {
+            background-color: #f7f7f7;
+        }
+        .directory-item:last-child {
+            border-bottom: none;
+        }
+        .directory-item h3 {
+            margin: 0;
+            font-size: 1.25rem;
+            color: #333;
+            font-weight: 600;
+        }
+        .directory-item p {
+            margin: 0.25rem 0;
+            font-size: 1rem;
+            color: #666;
+        }
+        .directory-item a {
+            color: black;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .directory-item a:hover {
+            text-decoration: underline;
+        }
+        .empty-message {
+            text-align: center;
+            color: #888;
+            font-size: 1.2rem;
+            padding: 2rem 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        Directory
+    </header>
+    <div class="container">
+        <div id="directory-list">
+            <!-- Directory items will be loaded here dynamically -->
+            <p class="empty-message">Loading directory...</p>
+        </div>
+    </div>
+
+    <script>
+        // Example JSON data
+        const jsonData = [
+            {
+                "name": "John Doe",
+                "occupation": "Software Engineer",
+                "email": "john@example.com"
+            },
+            {
+                "name": "Jane Smith",
+                "occupation": "Graphic Designer",
+                "email": "jane@example.com"
+            },
+            {
+                "name": "Sam Wilson",
+                "occupation": "Content Writer",
+                "email": "sam@example.com"
+            }
+        ];
+
+        // Function to load directory data into the page
+        function loadDirectoryData(data) {
+            const directoryList = document.getElementById('directory-list');
+            directoryList.innerHTML = ''; // Clear loading message
+            if (data.length === 0) {
+                directoryList.innerHTML = '<p class="empty-message">No directory entries available.</p>';
+                return;
+            }
+            data.forEach(item => {
+                const directoryItem = document.createElement('div');
+                directoryItem.classList.add('directory-item');
+                directoryItem.innerHTML = `
+                    <div>
+                        <h3>${item.name}</h3>
+                        <p>${item.occupation}</p>
+                    </div>
+                    <p><a href="mailto:${item.email}">${item.email}</a></p>
+                `;
+                directoryList.appendChild(directoryItem);
+            });
+        }
+
+        // Load data on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                loadDirectoryData(jsonData); // Simulate data loading delay
+            }, 500);
+        });
+    </script>
+</body>
+</html>
